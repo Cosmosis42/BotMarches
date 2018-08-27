@@ -10,7 +10,7 @@ class DiceModule:
         self.bot = bot
 
     @commands.command()
-    async def role(self, ctx, *, message):
+    async def roll(self, ctx, *, message):
         """Roll the dice! 1d20+4
         No spaces though."""
         matches = re.findall(r'(\d*)d(\d+)(\s*[+-]\s*\d+)?', message)
