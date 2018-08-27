@@ -14,13 +14,29 @@ logging.basicConfig(level=logging.INFO)
 AUTH_TOKEN = environ['DISCORD_TOKEN']
 #REDIS_URL = environ['REDISTOGO_URL']
 
-client = commands.Bot(command_prefix = '&')
+initial_extensions = [
+    'cogs.misc'
+]
+class WestMarchesBot(commands.Bot):
+    def __init__(self):
+        super().__init__(commands.when_mentioned_or('&'), 
+                        description='I will help you organize your game.') #Description shows up in help dialog
 
-@client.event
-async def on_ready():
-    logging.info('Logged in.')
-    print('Are you ready now, Mr. Krabs?')
+    async def on_ready(self):
+        logging.info('Logged in.')
+        logging.info('Are you ready now, Mr. Krabs?')
 
-logging.info('Starting.')
-client.run(AUTH_TOKEN)
-logging.info('Exited.')
+        game = '&help'
+        #Display help command as 'game being played'
+        await super().change_presence(activity=discord.Game(name=game, type=1))
+
+if __name__ == '__main__':
+    scribe = WestMarchesBot()
+
+    logging.info('Loading extensions')
+    for extension in initial_extensions:
+        scribe.load_extension(extension)
+    
+    logging.info('Starting.')
+    scribe.run(AUTH_TOKEN)
+    logging.info('Exited.')
