@@ -15,7 +15,8 @@ AUTH_TOKEN = environ['DISCORD_TOKEN']
 #REDIS_URL = environ['REDISTOGO_URL']
 
 initial_extensions = [
-    'cogs.misc'
+    'cogs.misc',
+    'cogs.dice'
 ]
 class WestMarchesBot(commands.Bot):
     def __init__(self):
