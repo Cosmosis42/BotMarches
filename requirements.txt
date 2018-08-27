@@ -1,2 +1,2 @@
-git+https://github.com/Rapptz/discord.py/archive/rewrite.zip
+https://github.com/Rapptz/discord.py/archive/rewrite.zip
 redis==2.10.6
