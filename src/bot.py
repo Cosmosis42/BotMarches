@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from os import environ
 
 AUTH_TOKEN = environ['DISCORD_TOKEN']
 REDIS_URL = environ['REDISTOGO_URL']
