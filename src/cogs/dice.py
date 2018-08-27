@@ -17,7 +17,7 @@ class DiceModule:
         total = int()
         for a, b, c in matches: #a dice, b sides, c modifier
             for dice in range(0, int(a)):
-                total += random.randint(1, int(b)) + int(c)
+                total += random.randint(1, int(b)) + int(c or 0)
 
         output = 'You rolled {}'.format(total)
         await ctx.send(output)                    
