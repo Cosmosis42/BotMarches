@@ -10,7 +10,7 @@ class MiscModule:
     async def ping(self, ctx):
         """Marco?
         Polo!"""
-        await ctx.seng('pong')
+        await ctx.send('pong')
 
     @commands.command()
     async def echo(self, ctx, *, message):
