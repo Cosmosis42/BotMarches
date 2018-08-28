@@ -16,6 +16,7 @@ class DiceModule:
         matches = re.findall(r'(\d*)d(\d+)(\s*[+-]\s*\d+)?', message)
         total = int()
         for a, b, c in matches: #a dice, b sides, c modifier
+            c = c.replace(' ', '') #Remove white space incase someone has ' + 4' or such
             for dice in range(0, int(a)):
                 total += random.randint(1, int(b)) + int(c or 0)
 
