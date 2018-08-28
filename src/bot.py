@@ -21,7 +21,8 @@ initial_extensions = [
 class WestMarchesBot(commands.Bot):
     def __init__(self):
         super().__init__(commands.when_mentioned_or('&'), 
-                        description='I will help you organize your game.') #Description shows up in help dialog
+                        description='I will help you organize your game.', #Description shows up in help dialog
+                        pm_help=True)
 
     async def on_ready(self):
         logging.info('Logged in.')
