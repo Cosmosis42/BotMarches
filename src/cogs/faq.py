@@ -18,20 +18,22 @@ class FaqModule:
 
     @commands.command()
     async def faq(self, ctx): #Arbitrary number of arguments
-            wrapper = '```'
-            output = '{}\n'.format(wrapper)
-            for index in range(0, len(self.questions)):
-                form_args = (index + 1, self.questions[index])
-                output += '{})\t{}\n'.format(*form_args)
+        '''Frequently assked questions.'''
+        wrapper = '```'
+        output = '{}Frequently asked questions:\n'.format(wrapper)
+
+        for index in range(0, len(self.questions)):
+            form_args = (index + 1, self.questions[index])
+            output += '{})\t{}\n'.format(*form_args)
             
-            output += wrapper
-            await ctx.send(output)
+        output += wrapper
+        await ctx.send(output)
     
     @commands.command(hidden=True)
     async def faq_add(self, ctx, question):
-            self.questions.append(question)
-            self.bot.redis.set('questions', dumps(self.questions))
-            await ctx.send('Question added.')
+        self.questions.append(question)
+        self.bot.redis.set('questions', dumps(self.questions))
+        await ctx.send('Question added.')
 
 
 def setup(bot):
