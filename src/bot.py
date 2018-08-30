@@ -8,15 +8,17 @@ except:
 from discord.ext import commands
 from os import environ
 import logging
+import redis
 
 logging.basicConfig(level=logging.INFO)
 
 AUTH_TOKEN = environ['DISCORD_TOKEN']
-#REDIS_URL = environ['REDISTOGO_URL']
+REDIS_URL = environ['REDISTOGO_URL']
 
 initial_extensions = [
     'cogs.misc',
-    'cogs.dice'
+    'cogs.dice',
+    'cogs.faq'
 ]
 class WestMarchesBot(commands.Bot):
     def __init__(self):
@@ -24,6 +26,8 @@ class WestMarchesBot(commands.Bot):
                         description='I will help you organize your game.', #Description shows up in help dialog
                         pm_help=True,
                         command_not_found="I dunno what yer talkin' about, {}.")
+        
+        self.redis = redis.from_url(REDIS_URL)
 
     async def on_ready(self):
         logging.info('Logged in.')
