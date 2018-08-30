@@ -19,7 +19,7 @@ class FaqModule:
     @commands.command(hidden=True)
     async def faq(self, ctx, *arguments): #Arbitrary number of arguments
         '''Frequently asked questions.'''
-        if isinstance(arguments, type(None)): arguments = () # Avoid exception on following statement.
+        if isinstance(arguments, type(None)): arguments = ('') # Avoid exception on following statement.
         if  arguments[0] is not 'add':
             wrapper = '```'
             output = '{}\n'.format(wrapper)
