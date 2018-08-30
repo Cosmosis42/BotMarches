@@ -37,6 +37,9 @@ class FaqModule:
             self.bot.redis.set('questions', dumps(self.questions))
             await ctx.send('Question added.')
 
+        else:
+            await ctx.send('I don\'t understand.')
+
 
 def setup(bot):
     bot.add_cog(FaqModule(bot))
