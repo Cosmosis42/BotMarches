@@ -16,11 +16,8 @@ class FaqModule:
         except:
             self.questions = list()
 
-    @commands.command(hidden=True)
-    async def faq(self, ctx, *arguments=None): #Arbitrary number of arguments
-        '''Frequently asked questions.'''
-        if isinstance(arguments, type(None)): arguments = ('') # Avoid exception on following statement.
-        if  arguments[0] is not 'add':
+    @commands.command()
+    async def faq(self, ctx): #Arbitrary number of arguments
             wrapper = '```'
             output = '{}\n'.format(wrapper)
             for index in range(0, len(self.questions)):
@@ -29,17 +26,12 @@ class FaqModule:
             
             output += wrapper
             await ctx.send(output)
-        elif arguments[0] is 'add' and ctx.author in whitelist:
-            input_question = str()
-            for item in arguments[1:]:
-                input_question += '{} '.format(item)
-
-            self.questions.append(input_question)
+    
+    @commands.command(hidden=True)
+    async def faq_add(self, ctx, question):
+            self.questions.append(question)
             self.bot.redis.set('questions', dumps(self.questions))
             await ctx.send('Question added.')
-
-        else:
-            await ctx.send('I don\'t understand.')
 
 
 def setup(bot):
