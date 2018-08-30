@@ -31,9 +31,10 @@ class FaqModule:
     
     @commands.command(hidden=True)
     async def faq_add(self, ctx, question):
-        self.questions.append(question)
-        self.bot.redis.set('questions', dumps(self.questions))
-        await ctx.send('Question added.')
+        if ctx.author in whitelist:
+            self.questions.append(question)
+            self.bot.redis.set('questions', dumps(self.questions))
+            await ctx.send('Question added.')
 
 
 def setup(bot):
