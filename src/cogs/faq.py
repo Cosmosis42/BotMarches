@@ -28,7 +28,7 @@ class FaqModule:
             
             output += wrapper
             await ctx.send(output)
-        elif ctx.author in whitelist:
+        elif arguments[0] is 'add' and ctx.author in whitelist:
             input_question = str()
             for item in arguments[1:]:
                 input_question += '{} '.format(item)
