@@ -17,7 +17,7 @@ class FaqModule:
             self.questions = list()
 
     @commands.command(hidden=True)
-    async def faq(self, ctx, *arguments): #Arbitrary number of arguments
+    async def faq(self, ctx, *arguments=None): #Arbitrary number of arguments
         '''Frequently asked questions.'''
         if isinstance(arguments, type(None)): arguments = ('') # Avoid exception on following statement.
         if  arguments[0] is not 'add':
