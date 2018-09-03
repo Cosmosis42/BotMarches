@@ -3,6 +3,9 @@
 from discord import Embed, Colour
 from discord.ext import commands
 from pickle import loads, dumps
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 whitelist = [
     '106449616681062400', #Admin1
@@ -39,6 +42,8 @@ class FaqModule:
             self.questions.append(question)
             self.bot.redis.set('questions', dumps(self.questions))
             await ctx.send('Question added.')
+        else:
+            logging.info('{} requested an addition but is not whitelisted.'.format(ctx.author))
 
     @commands.command()
     async def faq(self, ctx):
