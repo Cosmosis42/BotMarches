@@ -15,8 +15,10 @@ class FaqModule:
         self.bot = bot
         try:
             self.questions = loads(self.bot.redis.get('questions'))
+            self.answers = loads(self.bot.redis.get('answers'))
         except:
             self.questions = list()
+            self.answers = list()
 
     @commands.command()
     async def faq(self, ctx): #Arbitrary number of arguments
@@ -46,8 +48,15 @@ class FaqModule:
             author='Corbin',
             colour=Colour.from_rgb(23, 160, 101)
         )
-        for question in self.questions:
-            FaqEmbed.add_field(name=question, value='Sample Answer', inline=False)
+        for idx in range(0, len(self.questions)):
+            question = self.questions[idx]
+            
+            if idx < len(self.answers):
+                answer = self.answers[idx]
+            else:
+                answer = 'Null answer.'
+
+            FaqEmbed.add_field(name=question, value=answer, inline=False)
 
         await ctx.send(embed=FaqEmbed)
 
