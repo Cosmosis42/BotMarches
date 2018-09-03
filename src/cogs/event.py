@@ -24,7 +24,7 @@ class Event:
         **Place:** {self.place}
         **Date:** {self.date}\t**Time:** {self.time}
         **Players Needed:** {self.numPlayers}
-        **DM:** {self.dm}
+        **DM:** @\{{self.dm}\}
         **Description:**
         *{self.description}*
         """.format(self=self)
