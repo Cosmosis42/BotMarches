@@ -2,6 +2,8 @@ from discord.ext import commands
 from pickle import loads, dumps
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 class Event:
     def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID, players=None):
         self.eventID = eventID
@@ -28,7 +30,7 @@ class EventModule:
         channel = self.bot.get_channel(483331971771138065)
         eventID = len(self.events)
 
-        output = "**ID: **" + eventID
+        output = "**ID: **" + str(eventID)
         output += "\t**Name: **" + name +"\n"
         output += "**Place: **" + place + "\n"
         output += "**Date: **" + date
