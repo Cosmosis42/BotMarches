@@ -59,7 +59,7 @@ class EventModule:
         for x in self.events:
             if x.eventID == eventID:
                 await self.bot.http.delete_message(SCHEDULING, x.msgID)
-                del x
+                self.events.pop(x)
 
         self.bot.redis.set('events', dumps(self.events))
 
