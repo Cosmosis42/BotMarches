@@ -46,7 +46,7 @@ class FaqModule:
             author='Corbin'
         )
         for question in self.questions:
-            FaqEmbed.add_field(question, 'Sample Answer')
+            FaqEmbed.add_field(name=question, value='Sample Answer')
 
         await ctx.send(embed=FaqEmbed)
 
