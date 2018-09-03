@@ -1,6 +1,6 @@
 #Frequently Asked Questions
 
-from discord import Embed
+from discord import Embed, Colour
 from discord.ext import commands
 from pickle import loads, dumps
 
@@ -43,7 +43,8 @@ class FaqModule:
         FaqEmbed = Embed(
             title='Frequently Asked Questions',
             type='rich',
-            author='Corbin'
+            author='Corbin',
+            colour=Colour.from_rgb(23, 160, 101)
         )
         for question in self.questions:
             FaqEmbed.add_field(name=question, value='Sample Answer', inline=False)
