@@ -20,16 +20,16 @@ class Event:
 
     def __str__(self):
         output = """
-        **ID:** {.eventID}
-        \t**Name:** {.name}
-        **Place:** {.place}
-        **Date:** {.date}
-        \t**Time:** {.time}
-        **Players Needed:** {.numplayers}
-        **DM:** {.dm}
+        **ID:** {self.eventID}
+        \t**Name:** {self.name}
+        **Place:** {self.place}
+        **Date:** {self.date}
+        \t**Time:** {self.time}
+        **Players Needed:** {self.numplayers}
+        **DM:** {self.dm}
         **Description:**
-        *{.description}*
-        """.format(self)
+        *{self.description}*
+        """.format(self=self)
         output = dedent(output)
 
         return(output)
