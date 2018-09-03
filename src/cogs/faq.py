@@ -1,5 +1,6 @@
 #Frequently Asked Questions
 
+from discord import Embed
 from discord.ext import commands
 from pickle import loads, dumps
 
@@ -8,6 +9,7 @@ whitelist = [
     '107085990652280832', #Admin2
     '209840589166870528' #me
 ]
+
 class FaqModule:
     def __init__(self, bot):
         self.bot = bot
@@ -35,6 +37,18 @@ class FaqModule:
             self.questions.append(question)
             self.bot.redis.set('questions', dumps(self.questions))
             await ctx.send('Question added.')
+
+    @commands.command(hidden=True)
+    async def faq_embed(self, ctx):
+        FaqEmbed = Embed(
+            title='Frequently Asked Questions',
+            type='rich',
+            author='Corbin'
+        )
+        for question in self.questions:
+            FaqEmbed.add_field(question, 'Sample Answer')
+
+        await ctx.send(embed=FaqEmbed)
 
 
 def setup(bot):
