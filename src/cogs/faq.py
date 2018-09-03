@@ -20,8 +20,8 @@ class FaqModule:
             self.questions = list()
             self.answers = list()
 
-    @commands.command()
-    async def faq(self, ctx): #Arbitrary number of arguments
+    @commands.command(hidden=True)
+    async def faq_old(self, ctx): #Arbitrary number of arguments
         '''Frequently assked questions.'''
         wrapper = '```'
         output = '{}Frequently asked questions:\n'.format(wrapper)
@@ -40,8 +40,8 @@ class FaqModule:
             self.bot.redis.set('questions', dumps(self.questions))
             await ctx.send('Question added.')
 
-    @commands.command(hidden=True)
-    async def faq_embed(self, ctx):
+    @commands.command()
+    async def faq(self, ctx):
         FaqEmbed = Embed(
             title='Frequently Asked Questions',
             type='rich',
