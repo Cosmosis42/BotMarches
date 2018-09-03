@@ -24,7 +24,7 @@ class Event:
         **Place:** {self.place}
         **Date:** {self.date}\t**Time:** {self.time}
         **Players Needed:** {self.numPlayers}
-        **DM:** @\{{self.dm}\}
+        **DM:** {self.dm}
         **Description:**
         *{self.description}*
         """.format(self=self)
@@ -50,10 +50,6 @@ class EventModule:
 
         NewEvent.msgID = msg.id
         self.events.append(NewEvent)
-
-        #await msg.add_reaction(emoji=":going:")
-        #await msg.add_reaction(emoji=":mightgo:")
-        #await msg.add_reaction(emoji=":notgoing:")
 
         self.bot.redis.set('events', dumps(self.events))
 
