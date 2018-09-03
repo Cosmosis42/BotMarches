@@ -1,11 +1,12 @@
 from discord.ext import commands
 from pickle import loads, dumps
 import logging
+from textwrap import dedent
 
 logging.basicConfig(level=logging.INFO)
 
 class Event:
-    def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID, players=None):
+    def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID=None, players=None):
         self.eventID = eventID
         self.name = name
         self.place = place
@@ -16,6 +17,22 @@ class Event:
         self.description = description
         self.msgID = msgID
         self.players = players
+
+    def __str__(self):
+        output = """
+        **ID:** {.eventID}
+        \t**Name:** {.name}
+        **Place:** {.place}
+        **Date:** {.date}
+        \t**Time:** {.time}
+        **Players Needed:** {.numplayers}
+        **DM:** {.dm}
+        **Description:**
+        *{.description}*
+        """.format(self)
+        output = dedent(output)
+
+        return(output)
 
 class EventModule:
     def __init__(self, bot):
@@ -29,23 +46,17 @@ class EventModule:
     async def event_add(self, ctx, name, place, date, time, numPlayers, dm, description):
         channel = self.bot.get_channel(483331971771138065)
         eventID = len(self.events)
+        NewEvent = Event(eventID, name, place, date, time, numPlayers, dm, description)
+        
+        msg = await channel.send(str(NewEvent))
 
-        output = "**ID: **" + str(eventID)
-        output += "\t**Name: **" + name +"\n"
-        output += "**Place: **" + place + "\n"
-        output += "**Date: **" + date
-        output += "\t**Time: **" + time + "\n"
-        output += "**Players Needed: **" + numPlayers + "\n"
-        output += "**DM: **" + dm + "\n"
-        output += "**Description: **\n*" + description +"*"
+        NewEvent.msgID = msg.id
+        self.events.append(NewEvent)
 
+        #await msg.add_reaction(emoji=":going:")
+        #await msg.add_reaction(emoji=":mightgo:")
+        #await msg.add_reaction(emoji=":notgoing:")
 
-        msg = await channel.send(output)
-        await msg.add_reaction(emoji=":going:")
-        await msg.add_reaction(emoji=":mightgo:")
-        await msg.add_reaction(emoji=":notgoing:")
-
-        self.events.append(Event(eventID, name, place, date, time, numPlayers, dm, description, msg.id))
         self.bot.redis.set('events', dumps(self.events))
 
     @commands.command()
