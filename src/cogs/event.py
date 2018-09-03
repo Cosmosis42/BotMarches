@@ -1,6 +1,6 @@
 from discord.ext import commands
 from pickle import loads, dumps
-import datetime
+import logging
 
 class Event:
     def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID, players=None):
