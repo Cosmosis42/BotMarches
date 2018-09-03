@@ -58,7 +58,9 @@ class EventModule:
     async def event_cancel(self, ctx, eventID):
         for x in self.events:
             if x.eventID == eventID:
-                await self.bot.http.delete_message(SCHEDULING, x.msgID)
+                channel = self.bot.get_channel(SCHEDULING)
+                msg = await channel.get_message(x.msgID)
+                await msg.delete()
                 self.events.pop(x)
 
         self.bot.redis.set('events', dumps(self.events))
