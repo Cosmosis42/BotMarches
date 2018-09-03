@@ -41,6 +41,9 @@ class EventModule:
 
 
         msg = await channel.send(output)
+        await msg.add_reaction(emoji=":going:")
+        await msg.add_reaction(emoji=":mightgo:")
+        await msg.add_reaction(emoji=":notgoing:")
 
         self.events.append(Event(eventID, name, place, date, time, numPlayers, dm, description, msg.id))
         self.bot.redis.set('events', dumps(self.events))
