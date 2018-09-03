@@ -18,7 +18,8 @@ REDIS_URL = environ['REDISTOGO_URL']
 initial_extensions = [
     'cogs.misc',
     'cogs.dice',
-    'cogs.faq'
+    'cogs.faq', 
+    'cogs.event'
 ]
 class WestMarchesBot(commands.Bot):
     def __init__(self):
