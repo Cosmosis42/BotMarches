@@ -40,7 +40,7 @@ class EventModule:
         output += "**Description: **\n*" + description +"*"
 
         try:
-            msg = await channel.send(output)
+            msg = await self.bot.send_message(channel, output)
         except:
             logging.info('message not sent.')
 
