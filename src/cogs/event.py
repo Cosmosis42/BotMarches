@@ -5,6 +5,7 @@ from textwrap import dedent
 
 logging.basicConfig(level=logging.INFO)
 
+SCHEDULING = 483331971771138065
 class Event:
     def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID=None, players=None):
         self.eventID = eventID
@@ -42,7 +43,7 @@ class EventModule:
 
     @commands.command()
     async def event_add(self, ctx, name, place, date, time, numPlayers, dm, description):
-        channel = self.bot.get_channel(483331971771138065)
+        channel = self.bot.get_channel(SCHEDULING)
         eventID = len(self.events)
         NewEvent = Event(eventID, name, place, date, time, numPlayers, dm, description)
         
