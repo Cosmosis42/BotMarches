@@ -39,7 +39,10 @@ class EventModule:
         output += "**DM: **" + dm + "\n"
         output += "**Description: **\n*" + description +"*"
 
-        msg = await channel.send(output)
+        try:
+            msg = await channel.send(output)
+        except:
+            logging.info('message not sent.')
 
         self.events.append(Event(eventID, name, place, date, time, numPlayers, dm, description, msg.id))
         self.bot.redis.set('events', dumps(self.events))
