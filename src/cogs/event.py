@@ -20,11 +20,9 @@ class Event:
 
     def __str__(self):
         output = """
-        **ID:** {self.eventID}
-        \t**Name:** {self.name}
+        **ID:** {self.eventID}\t**Name:** {self.name}
         **Place:** {self.place}
-        **Date:** {self.date}
-        \t**Time:** {self.time}
+        **Date:** {self.date}\t**Time:** {self.time}
         **Players Needed:** {self.numplayers}
         **DM:** {self.dm}
         **Description:**
