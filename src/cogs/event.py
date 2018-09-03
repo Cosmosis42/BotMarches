@@ -35,7 +35,7 @@ class EventModule:
         output += "**Place: **" + place + "\n"
         output += "**Date: **" + date
         output += "\t**Time: **" + time + "\n"
-        output += "**Players Needed: " + numPlayers + "\n"
+        output += "**Players Needed: **" + numPlayers + "\n"
         output += "**DM: **" + dm + "\n"
         output += "**Description: **\n*" + description +"*"
 
