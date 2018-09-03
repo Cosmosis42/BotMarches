@@ -21,7 +21,7 @@ class EventModule:
         try:
             self.events = loads(self.bot.redis.get('events'))
         except:
-            self.events = list(Event)
+            self.events = list()
 
     @commands.command()
     async def event_add(self, ctx, name, place, date, time, numPlayers, dm, description):
