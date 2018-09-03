@@ -23,7 +23,7 @@ class Event:
         **ID:** {self.eventID}\t**Name:** {self.name}
         **Place:** {self.place}
         **Date:** {self.date}\t**Time:** {self.time}
-        **Players Needed:** {self.numplayers}
+        **Players Needed:** {self.numPlayers}
         **DM:** {self.dm}
         **Description:**
         *{self.description}*
