@@ -1,3 +1,4 @@
+from discord import Embed, Colour
 from discord.ext import commands
 from pickle import loads, dumps
 import logging
@@ -33,6 +34,25 @@ class Event:
 
         return(output)
 
+    def embed(self):
+        temp = Embed(
+            title=self.eventID,
+            type='rich',
+            author='Corbin',
+            colour=Colour.from_rgb(23, 160, 101)
+        )
+
+        temp.add_field(name='**ID:**', value=self.eventID)
+        temp.add_field(name='**Name:**', value=self.name)
+        temp.add_field(name='**Place:**', value=self.place, inline=False)
+        temp.add_field(name='**Date:**', value=self.date, inline=False)
+        temp.add_field(name='**Time:**', value=self.time)
+        temp.add_field(name='**Players Needed:**', value=self.numPlayers, inline=False)
+        temp.add_field(name='**DM:**', value=self.dm, inline=False)
+        temp.add_field(name='**Description:**', value=self.description, inline=False)
+
+        return(temp)
+
 class EventModule:
     def __init__(self, bot):
         self.bot = bot
@@ -47,7 +67,7 @@ class EventModule:
         eventID = len(self.events)
         NewEvent = Event(eventID, name, place, date, time, numPlayers, dm, description)
         
-        msg = await channel.send(str(NewEvent))
+        msg = await channel.send(embed=NewEvent.embed())
 
         NewEvent.msgID = msg.id
         self.events.append(NewEvent)
