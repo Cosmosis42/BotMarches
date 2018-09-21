@@ -38,13 +38,13 @@ class Event:
 
     def embed(self):
         temp = Embed(
-            title=self.eventID,
+            title='ID: {}'.format(self.eventID),
             type='rich',
             author='Corbin',
             colour=Colour.from_rgb(23, 160, 101)
         )
 
-        temp.add_field(name='**ID:**', value=self.eventID)
+        #temp.add_field(name='**ID:**', value=self.eventID)
         temp.add_field(name='**Name:**', value=self.name)
         temp.add_field(name='**Place:**', value=self.place, inline=False)
         temp.add_field(name='**Date:**', value=self.date, inline=False)
@@ -76,7 +76,7 @@ class EventModule:
             if key_tup not in self.usedKeys:
                 self.usedKeys.append(key_tup)
                 key = '{}{}'.format(self.bot.adjectives[adj_idx], self.bot.animals[an_idx])
-                key.replace(' ', '')
+                key = key.replace(' ', '')
                 self.bot.redis.set('usedKeys', dumps(self.usedKeys))
                 return(key)
 
