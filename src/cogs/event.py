@@ -76,10 +76,10 @@ class EventModule:
 
     @commands.command()
     async def event_cancel(self, ctx, eventID : int):
-        for x in self.events:
-            if x.eventID == eventID:
+        for x in range(0, len(self.events)):
+            if self.events[x].eventID == eventID:
                 channel = self.bot.get_channel(SCHEDULING)
-                msg = await channel.get_message(x.msgID)
+                msg = await channel.get_message(self.events[x].msgID)
                 await msg.delete()
                 self.events.pop(x)
                 self.bot.redis.set('events', dumps(self.events))
