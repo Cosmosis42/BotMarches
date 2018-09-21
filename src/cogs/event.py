@@ -82,8 +82,10 @@ class EventModule:
                 msg = await channel.get_message(x.msgID)
                 await msg.delete()
                 self.events.pop(x)
+                self.bot.redis.set('events', dumps(self.events))
+                return()
 
-        self.bot.redis.set('events', dumps(self.events))
+
 
 def setup(bot):
     bot.add_cog(EventModule(bot))
