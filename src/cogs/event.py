@@ -3,10 +3,12 @@ from discord.ext import commands
 from pickle import loads, dumps
 import logging
 from textwrap import dedent
+from random import randint
 
 logging.basicConfig(level=logging.INFO)
 
 SCHEDULING = 483331971771138065
+
 class Event:
     def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID=None, players=None):
         self.eventID = eventID
@@ -60,11 +62,28 @@ class EventModule:
             self.events = loads(self.bot.redis.get('events'))
         except:
             self.events = list()
+        
+        try:
+            self.usedKeys = loads(self.bot.redis.get('usedKeys'))
+        except:
+            self.usedKeys = list()
+
+    def IDgen(self):
+        while True:
+            adj_idx = randint(0, len(self.bot.adjectives))
+            an_idx = randint(0, len(self.bot.animals))
+            key_tup = (adj_idx, an_idx)
+            if key_tup not in self.usedKeys:
+                self.usedKeys.append(key_tup)
+                key = '{}{}'.format(self.bot.adjectives[adj_idx], self.bot.animals[an_idx])
+                key.replace(' ', '')
+                self.bot.redis.set('usedKeys', dumps(self.usedKeys))
+                return(key)
 
     @commands.command()
     async def event_add(self, ctx, name, place, date, time, numPlayers, dm, description):
         channel = self.bot.get_channel(SCHEDULING)
-        eventID = len(self.events)
+        eventID = self.IDgen()
         NewEvent = Event(eventID, name, place, date, time, numPlayers, dm, description)
         
         msg = await channel.send(embed=NewEvent.embed())

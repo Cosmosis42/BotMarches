@@ -9,11 +9,17 @@ from discord.ext import commands
 from os import environ
 import logging
 import redis
+from urllib.request import urlopen
 
 logging.basicConfig(level=logging.INFO)
 
 AUTH_TOKEN = environ['DISCORD_TOKEN']
 REDIS_URL = environ['REDISTOGO_URL']
+
+animals_req = urlopen('https://gist.githubusercontent.com/atduskgreg/3cf8ef48cb0d29cf151bedad81553a54/raw/82f142562cf50b0f6fb8010f890b2f934093553e/animals.txt')
+animals = animals_req.read().decode().split('\n')
+adjective_req = urlopen('https://www.d.umn.edu/~rave0029/research/adjectives1.txt')
+adjectives = adjective_req.read().decode().split('\n')
 
 initial_extensions = [
     'cogs.misc',
@@ -29,6 +35,8 @@ class WestMarchesBot(commands.Bot):
                         command_not_found="I dunno what yer talkin' about, {}.")
         
         self.redis = redis.from_url(REDIS_URL)
+        self.animals = animals
+        self.adjectives = adjectives
 
     async def on_ready(self):
         logging.info('Logged in.')
