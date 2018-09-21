@@ -67,7 +67,7 @@ class EventModule:
         eventID = len(self.events)
         NewEvent = Event(eventID, name, place, date, time, numPlayers, dm, description)
         
-        msg = await channel.send(str(NewEvent))
+        msg = await channel.send(embed=NewEvent.embed())
 
         NewEvent.msgID = msg.id
         self.events.append(NewEvent)
