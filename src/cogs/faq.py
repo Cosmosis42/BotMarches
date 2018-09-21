@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 FaqEmbed = Embed(
             title='Frequently Asked Questions (CLICK ME)',
             url='http://evantyr.wiki/Guidelines',
-            type='rich',
+            type='html',
             author='Corbin',
             colour=Colour.from_rgb(23, 160, 101)
         )
