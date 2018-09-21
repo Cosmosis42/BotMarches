@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 FaqEmbed = Embed(
-            title='Frequently Asked Questions',
+            title='Frequently Asked Questions (CLICK ME)',
             url='http://evantyr.wiki/Guidelines',
             type='rich',
             author='Corbin',
