@@ -85,6 +85,14 @@ class EventModule:
                 self.bot.redis.set('events', dumps(self.events))
                 return()
 
+    @commands.command(hidden=True)
+    async def event_dump(self, ctx):
+        channel = self.bot.get_channel(SCHEDULING)
+        for entry in range(0, len(self.events)):
+            msg = await channel.send(embed=self.events[entry].embed())
+            self.events[entry].msgID = msg.id
+            
+        self.bot.redis.set('events', dumps(self.events))
 
 
 def setup(bot):
