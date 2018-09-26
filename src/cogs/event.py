@@ -159,12 +159,13 @@ class EventModule:
         newEvent.Description = reply.content
 
         newEvent.eventID = self.IDgen()
-        msg = await channel.send(embed=newEvent.embed())
+        schedChannel = self.bot.get_channel(SCHEDULING)
+        msg = await schedChannel.send(embed=newEvent.embed())
 
         newEvent.msgID = msg.id
         self.events.append(newEvent)
 
-        #self.bot.redis.set('events', dumps(self.events))
+        self.bot.redis.set('events', dumps(self.events))
         return()
 
 
