@@ -9,6 +9,19 @@ logging.basicConfig(level=logging.INFO)
 
 SCHEDULING = 483331971771138065
 
+def blank_event():
+    tempEvent = Event(
+        eventID=None,
+        name=None,
+        place=None,
+        date=None,
+        time=None,
+        numPlayers=None,
+        dm=None,
+        description=None
+    )
+    return(tempEvent)
+
 class Event:
     def __init__(self, eventID, name, place, date, time, numPlayers, dm, description, msgID=None, players=None):
         self.eventID = eventID
@@ -114,6 +127,50 @@ class EventModule:
             self.events[entry].msgID = msg.id
             
         self.bot.redis.set('events', dumps(self.events))
+
+    @commands.command()
+    async def event_wizard(self, ctx):
+        newEvent = blank_event()
+        channel = ctx.author.create_dm()
+
+        def check(message):
+            return(message.channel==channel)
+
+        await channel.send('Event Name?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.name = reply.content
+        await channel.send('Place?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.place = reply.content
+        await channel.send('Date?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.date = reply.content
+        await channel.send('Time?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.time = reply.content
+        await channel.send('Number of players?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.numPlayers = reply.content
+        await channel.send('Dungeon Master?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.dm = reply.content
+        await channel.send('Description?')
+        reply = self.bot.wait_for('message', check=check)
+        newEvent.Description = reply.content
+
+        newEvent.eventID = self.IDgen()
+        msg = await channel.send(embed=newEvent.embed())
+
+        newEvent.msgID = msg.id
+        self.events.append(newEvent)
+
+        self.bot.redis.set('events', dumps(self.events))
+        return()
+
+
+
+
+
 
 
 def setup(bot):
