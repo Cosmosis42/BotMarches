@@ -134,7 +134,7 @@ class EventModule:
         channel = await ctx.author.create_dm()
 
         def check(message):
-            return(message.channel==channel)
+            return(message.channel==channel and message.author==ctx.author)
 
         await channel.send('Event Name?')
         reply = await self.bot.wait_for('message', check=check)
@@ -164,7 +164,7 @@ class EventModule:
         newEvent.msgID = msg.id
         self.events.append(newEvent)
 
-        self.bot.redis.set('events', dumps(self.events))
+        #self.bot.redis.set('events', dumps(self.events))
         return()
 
 
