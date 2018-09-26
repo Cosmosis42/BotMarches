@@ -131,7 +131,7 @@ class EventModule:
     @commands.command()
     async def event_wizard(self, ctx):
         newEvent = blank_event()
-        channel = ctx.author.create_dm()
+        channel = await ctx.author.create_dm()
 
         def check(message):
             return(message.channel==channel)
