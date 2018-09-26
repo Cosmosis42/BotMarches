@@ -137,25 +137,25 @@ class EventModule:
             return(message.channel==channel)
 
         await channel.send('Event Name?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.name = reply.content
         await channel.send('Place?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.place = reply.content
         await channel.send('Date?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.date = reply.content
         await channel.send('Time?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.time = reply.content
         await channel.send('Number of players?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.numPlayers = reply.content
         await channel.send('Dungeon Master?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.dm = reply.content
         await channel.send('Description?')
-        reply = self.bot.wait_for('message', check=check)
+        reply = await self.bot.wait_for('message', check=check)
         newEvent.Description = reply.content
 
         newEvent.eventID = self.IDgen()
