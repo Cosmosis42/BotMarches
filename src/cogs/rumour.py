@@ -23,7 +23,7 @@ class rumour:
 
         temp.add_field(name='**Description:**', value=self.description)
         temp.add_field(name='**GM**', value=self.gm, inline=False)
-        temp.add_field(name='Posted by:', value='@{'+self.poster+'}', inline=False)
+        temp.add_field(name='Posted by:', value='@{'+self.poster.id+'}', inline=False)
         return(temp)
 
 class RumoursModule:
@@ -74,8 +74,6 @@ class RumoursModule:
                 self.rumours.pop(x)
                 self.bot.redis.set('rumours', dumps(self.rumours))
                 return()
-
-
 
 
 def setup(bot):
