@@ -20,20 +20,24 @@ vowels = 'aeiouy'
 
 animals_req = urlopen('https://gist.githubusercontent.com/atduskgreg/3cf8ef48cb0d29cf151bedad81553a54/raw/82f142562cf50b0f6fb8010f890b2f934093553e/animals.txt')
 animals = animals_req.read().decode().split('\n')
+animals = [x for x in animals if len(x) > 0]
 
 adjective_req = urlopen('https://www.d.umn.edu/~rave0029/research/adjectives1.txt')
 adjectives = adjective_req.read().decode(errors='replace').split('\n')
+adjectives = [x for x in adjectives if len(x) > 0]
 
 verb_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/verbs.txt')
 verbs = verb_req.read().decode().split('\n')
+verbs = [x for x in verbs if len(x) > 0]
 for idx in range(0, len(verbs)):
-    if verbs[idx][-1] in vowels:
-        verbs[idx] = verbs[idx][0:-1] + 'ing'
-    else:
-        verbs[idx] += 'ing'
+        if verbs[idx][-1] in vowels:
+            verbs[idx] = verbs[idx][0:-1] + 'ing'
+        else:
+            verbs[idx] += 'ing'
 
 objects_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/nouns.txt')
 objects = objects_req.read().decode().split('\n')
+objects = [x for x in objects if len(x)>0]
 
 
 
