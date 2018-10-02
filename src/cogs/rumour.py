@@ -23,7 +23,7 @@ class rumour:
 
         temp.add_field(name='**Description:**', value=self.description)
         temp.add_field(name='**GM**', value=self.gm, inline=False)
-        temp.add_field(name='Posted by:', value=self.poster, inline=False)
+        temp.add_field(name='Posted by:', value='@{'+self.poster+'}', inline=False)
         return(temp)
 
 class RumoursModule:
