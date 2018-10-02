@@ -82,6 +82,7 @@ class EventModule:
             self.usedKeys = list()
 
     def IDgen(self):
+        self.usedKeys = loads(self.bot.redis.get('usedKeys'))
         while True:
             adj_idx = randint(0, len(self.bot.adjectives))
             an_idx = randint(0, len(self.bot.animals))

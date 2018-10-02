@@ -16,16 +16,33 @@ logging.basicConfig(level=logging.INFO)
 AUTH_TOKEN = environ['DISCORD_TOKEN']
 REDIS_URL = environ['REDISTOGO_URL']
 
+vowels = 'aeiouy'
+
 animals_req = urlopen('https://gist.githubusercontent.com/atduskgreg/3cf8ef48cb0d29cf151bedad81553a54/raw/82f142562cf50b0f6fb8010f890b2f934093553e/animals.txt')
 animals = animals_req.read().decode().split('\n')
+
 adjective_req = urlopen('https://www.d.umn.edu/~rave0029/research/adjectives1.txt')
 adjectives = adjective_req.read().decode(errors='replace').split('\n')
+
+verb_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/verbs.txt')
+verbs = verb_req.read().decode().split('\n')
+for idx in range(0, len(verbs)):
+    if verbs[idx][-1] in vowels:
+        verbs[idx] = verbs[0:-1] + 'ing'
+    else:
+        verbs[idx] += 'ing'
+
+objects_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/nouns.txt')
+objects = objects_req.read().decode().split('\n')
+
+
 
 initial_extensions = [
     'cogs.misc',
     'cogs.dice',
     'cogs.faq', 
-    'cogs.event'
+    'cogs.event',
+    'cogs.rumour'
 ]
 class WestMarchesBot(commands.Bot):
     def __init__(self):
@@ -37,6 +54,8 @@ class WestMarchesBot(commands.Bot):
         self.redis = redis.from_url(REDIS_URL)
         self.animals = animals
         self.adjectives = adjectives
+        self.verbs = verbs
+        self.objects = objects
 
     async def on_ready(self):
         logging.info('Logged in.')
