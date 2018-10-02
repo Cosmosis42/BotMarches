@@ -28,7 +28,7 @@ verb_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/m
 verbs = verb_req.read().decode().split('\n')
 for idx in range(0, len(verbs)):
     if verbs[idx][-1] in vowels:
-        verbs[idx] = verbs[0:-1] + 'ing'
+        verbs[idx] = verbs[idx][0:-1] + 'ing'
     else:
         verbs[idx] += 'ing'
 
