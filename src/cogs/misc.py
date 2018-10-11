@@ -1,6 +1,9 @@
 #Misc commands
 
 from discord.ext import commands
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 GUILDHALL = 483022288870965259
 
@@ -21,9 +24,11 @@ class MiscModule:
         await ctx.send(message)
 
     @commands.command(hidden=True)
-    async def gh(self, ctx, * ,message):
+    async def gh(self, ctx, *, message):
         channel = self.bot.get_channel(GUILDHALL)
-        await channel.send(message)
+        logging.info('GH: {}'.format(message))
+        msg = await channel.send(message)
+        logging.info('Response: {}'.format(str(msg)))
 
 
 def setup(bot):
