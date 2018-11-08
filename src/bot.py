@@ -22,8 +22,9 @@ animals_req = urlopen('https://gist.githubusercontent.com/atduskgreg/3cf8ef48cb0
 animals = animals_req.read().decode().split('\n')
 animals = [x for x in animals if len(x) > 0]
 
-adjective_req = urlopen('https://www.d.umn.edu/~rave0029/research/adjectives1.txt')
+adjective_req = urlopen('https://webcache.googleusercontent.com/search?q=cache:HvW_3rWVFh0J:https://www.d.umn.edu/~rave0029/research/adjectives1.txt+&cd=1&hl=en&ct=clnk&gl=ca')
 adjectives = adjective_req.read().decode(errors='replace').split('\n')
+adjectives = adjectives[1:len(adjectives)]
 adjectives = [x for x in adjectives if len(x) > 0]
 
 verb_req = urlopen('https://raw.githubusercontent.com/aaronbassett/Pass-phrase/master/verbs.txt')
